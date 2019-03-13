@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+    <div align="center">
+        <h2> Unused Space Cost </h2>
+
+            <table class="table" cellpadding="3" border="3" frame="box" align="center"  style="height:50%; width:50%">
+
+            <caption align="center"> Uplift for delivery headed to {{ subtitle }} with {{ pallet_count }} pallets </caption>
+
+                <tbody>
+                 <tr>
+                     <th> &nbsp; </th>
+                     <th colspan="2"> Pan </th>
+                 </tr>
+
+                 <tr>
+                     <th> &nbsp; </th>
+                     <th> Pallets </th> <th> Uplift Cost </th>
+
+                 </tr>
+
+                 <tr align="center">
+                    <td> {{ subtitle }} Dry </td>
+                    <td> {{ dry_pallets }} </td>
+                     <td> ${{ dry_pallets * 87.5 }} </td>
+                 </tr>
+
+                 <tr align="center">
+                    <td> {{ subtitle }} Chiller </td>
+                    <td> {{ chilled_pallets }} </td>
+                     <td> ${{ chilled_pallets * 87.5 }} </td>
+                 </tr>
+
+                 <tr align="center">
+                    <td> {{ subtitle }} Freezer </td>
+                    <td> {{ frozen_pallets }} </td>
+                     <td> ${{ frozen_pallets * 87.5 }} </td>
+                 </tr>
+                <tr align="center" bgcolor="#add8e6">
+                    <th> Total </th>
+                    <td> {{ pallet_count }} </td>
+                    <td> ${{ pallet_count * 87.5 }} </td>
+                </tr>
+
+                </tbody>
+
+            </table>
+    </div>
+
+{% endblock %}

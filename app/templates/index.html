@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <div class="row" align="center">
+        <div class="col-xs-6" align="right">
+        <a href="{{ url_for('pallet_display') }}">
+            <button type="button" class="btn-primary" style="border-radius: 8px">
+            Loading
+            </button>
+        </a>
+        </div>
+        <div class="col-xs-6" align="left">
+            <a href="{{ url_for('index') }}">
+                <button type="button" class="btn-primary" style="border-radius: 8px">
+                    Unloading
+                </button>
+            </a>
+        </div>
+    </div>
+    <br>
+    <div class="row" align="center">
+        <div class="col-xs-6" align="right">
+            <a href="{{ url_for('administration') }}">
+                <button type="button" class="btn-primary" style="border-radius: 8px">
+                    Admin
+                </button>
+            </a>
+        </div>
+        <div class="col-xs-6" align="left">
+
+            <a href="{{ url_for('pan_preparation') }}">
+                <button type="button" class="btn-primary" style="border-radius: 8px ">
+                Pan Prep
+                </button>
+            </a>
+        </div>
+    </div>
+
+{% endblock %}

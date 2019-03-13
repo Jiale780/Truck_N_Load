@@ -1,0 +1,125 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block styles %}
+    {{ super() }}
+    <link rel="shortcut icon" href="{{ url_for('static',filename='favicon.ico') }}">
+    <style>
+        .manifest_submit {
+            font-size: calc(16px + 1vw);
+            border-radius:8px;
+            background-color: rgb(51, 122, 183);
+            border-bottom-color: rgb(46,109,164);
+            color: #FFFFFF;
+        }
+        th.manifest {
+            padding-left:1vw;
+            padding-right:1vw;
+        }
+        table#manifest {
+
+        }
+        td.table_C {
+            background-color: #AFA;
+            font-weight: bold;
+        }
+        td.table_F {
+            background-color: #AFF;
+            font-weight: bold;
+        }
+        td.table_D {
+            background-color: #955;
+            color:#FFF;
+            font-weight: bold;
+        }
+        .logo {
+            position:absolute;
+            width:calc(25px + 9vw);
+        }
+        button {
+            font-size: calc(16px + 1vw);
+        }
+        input#username, input#email, input#password,  input#password2{
+            font-size: calc(1vw + 12px);
+            height: calc(1.2vw + 12px);
+        }
+        input#submit {
+            color:#2A66B4;
+            font-weight:bold;
+            font-size: calc(1vw + 12px);
+        }
+        label {
+            font-size: calc(1vw + 12px);
+            color:#2A66B4;
+        }
+        a.accept {
+            color: #8BAF5A;
+        }
+        a.back {
+            color: #F03B27;
+        }
+        h3  {
+            color: #4A96D4;
+            font-size: calc(1vw + 10px);
+
+        }
+        span.left , span.right {
+            font-weight: bold;
+            color: #4A96D4;
+        }
+        header.IndexHeader {
+            position:relative;
+        }
+        h1{
+            color:#2A66B4;
+            font-weight:lighter;
+            font-size: calc(4vw + 15px);
+        }
+        h2 {
+            color:#4A96D4;
+            font-size: calc(2vw + 12px);
+        }
+        body {
+            font-size: calc(1vw + 10px);
+            font-family: sans-serif;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}
+    {% if title %}
+    {{ title }} - Truck-n-Load
+    {% else %}
+    Truck-n-Load
+    {% endif %}
+{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-default">
+        <div class="container" style="position:relative;">
+            <img class="logo" src="{{ url_for('static',filename='logo.png') }}"/>
+            <h1 align="center"><a href="{{ url_for('index') }}">SeaLanes</a></h1>
+            <h2 align="center">Loading Management System</h2>
+            Truck-n-Load:
+            <a href={{ url_for('index') }}>Home</a>
+            <a href="javascript:history.back()">Back</a>
+            <a href={{ url_for('logout') }} style="float:right">Logout</a>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block app_content %}{% endblock %}
+    </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block app_content %}
+    <h3>Pan Selector</h3>
+    {% if table['rows']|length > 0 %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        {% for heading in table['headings'] %}
+                            <th>{{ heading }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in table['rows'] %}
+                        <tr>
+                        {% for heading in table['headings'] %}
+                            <td> {{ row[heading] }} </td>
+                        {% endfor %}
+
+                            <td> <a href="{{ url_for('pan_cost') }}?delivery_id={{ row['delivery id'] }}">
+                                <button type="button" class="btn-primary" style="border-radius: 8px"> Pan Cost </button> </a> </td>
+                            <td> <a href="{{ url_for('unused_space_cost') }}?delivery_id={{ row['delivery id'] }}">
+                                <button type="button" class="btn-primary" style="border-radius: 8px">
+                                    Unused Space Cost  </button> </a> </td>
+                            <td><!-- This is where the button for the manifest goes - Michael-->
+                                <form action="{{ url_for("manifest") }}" method="post">
+                                    <!-- This is harder than I thought...-->
+                                    <input type="hidden" name="id" value="{{ row['delivery id'] }}"/>
+                                    {{ manifestForm.hidden_tag() }}
+                                    <input name="submit" type="submit" class="manifest_submit" value="Manifest"/>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        No Pans available with deliveries
+    {% endif %}
+
+{% endblock %}

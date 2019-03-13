@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <div id="pan" align="center">
+        <div id="palletTable" align="center">
+            <h3>Pallet Arrangement Display</h3>
+
+            <div align="center">
+                <p> Front </p>
+            </div>
+            <table id="display" style="height:30%; width:100%">
+                <tbody>
+                {% for len in pan %}
+                    {% if pan.index(len) > 10 %}
+                        <tr class="oversize">
+                            {% else %}
+                        <tr>
+                    {% endif %}
+                {% for width in len %}
+                    {% if pan.index(len) > 10  %}
+                        <td class="oversize">
+                    {% elif len[0][0][0].category.lower() == 'f' %}
+                        {% if pan[pan.index(len) + 1][0][0][0].category.lower() == 'c' or pan[pan.index(len) + 1][0][0][0].category.lower() == 'd' %}
+                            <td class="line" bgcolor="aqua">
+                                {% else %}
+                            <td bgcolor="aqua">
+                        {% endif %}
+                    {% elif len[0][0][0].category.lower() == 'c' %}
+                        <td bgcolor="#ffe4c4">
+                            {% else %}
+                        <td bgcolor="#f4a460">
+                    {% endif %}
+                {% for height in range(width|length-1, -1, -1) %}
+                    <div align="center">
+                        <p> ID: <a href="#{{ width[height][0].id }}"
+                                   style="font-weight: bold; color: #000;"> {{ width[height][0].id }}</a>
+                        </p>
+                        <div id="{{ width[height][0].id }}" class="modalDialog">
+                            <div>
+                                <a href="#close" title="Close" class="close">X</a>
+                                <h2>Pallet {{ width[height][0].id }} Information: </h2>
+                                <p>Weight: {{ width[height][0].weight }}</p>
+                                <p>Height: {{ width[height][0].height }}</p>
+                                <p>Is Stack able: {{ width[height][0].stack_able }}</p>
+                                <p>Contents: </p>
+                                <ul>
+                                    {% for pallet_id in conts %}
+                                        {% if width[height][0].id == pallet_id %}
+                                            {% for contents in conts[pallet_id] %}
+                                                <li>
+                                                    ID: {{ contents[0] }}
+                                                    Name: {{ contents[2] }}
+                                                    Quantity: {{ contents[1] }}
+                                                </li>
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <p>
+                            Category:
+                            {% if width[height][0].category.lower() == 'f' %}
+                                Frozen
+                            {% elif width[height][0].category.lower() == 'c' %}
+                                Chill
+                            {% else %}
+                                Dry
+                            {% endif %}
+                            <br>Destination: {{ width[height][3].address }}
+                        </p>
+                        {% if width[height][2] == True %}
+                            <hr class="rail">
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                </td>
+
+                {% endfor %}
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div align="center">
+                <p> Back </p>
+            </div>
+        </div>
+    </div>
+
+    <style type="text/css">
+        #pan {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+
+        #palletTable {
+            display: flex;
+            flex-direction: column;
+        }
+
+        td.oversize {
+            background-color: orangered;
+        }
+
+        td.line {
+            border-bottom: 20px solid #1a10e7;
+        }
+
+        td {
+            padding: 15px
+        }
+
+        table {
+            border-spacing: 5px;
+        }
+
+        table, th, td {
+            border: 1px solid #4A96D4;
+        }
+
+        hr.rail {
+            margin: 20px 0px 20px 0px;
+            padding: 0px;
+            border: 0px;
+            border-bottom: 4px solid #1a10e7;
+        }
+
+        .modalDialog {
+            position: fixed;
+            font-family: Arial, Helvetica, sans-serif;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 99999;
+            opacity: 0;
+            -webkit-transition: opacity 400ms ease-in;
+            -moz-transition: opacity 400ms ease-in;
+            transition: opacity 400ms ease-in;
+            pointer-events: none;
+        }
+
+        .modalDialog:target {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modalDialog > div {
+            width: 400px;
+            position: relative;
+            margin: 10% auto;
+            padding: 5px 20px 13px 20px;
+            border-radius: 10px;
+            background: #fff;
+            background: -moz-linear-gradient(#fff, #999);
+            background: -webkit-linear-gradient(#fff, #999);
+            background: -o-linear-gradient(#fff, #999);
+        }
+
+        .close {
+            background: #606061;
+            color: #FFFFFF;
+            line-height: 25px;
+            position: absolute;
+            right: -12px;
+            text-align: center;
+            top: -10px;
+            width: 24px;
+            text-decoration: none;
+            font-weight: bold;
+            -webkit-border-radius: 12px;
+            -moz-border-radius: 12px;
+            border-radius: 12px;
+            -moz-box-shadow: 1px 1px 3px #000;
+            -webkit-box-shadow: 1px 1px 3px #000;
+            box-shadow: 1px 1px 3px #000;
+        }
+
+        .close:hover {
+            background: #00d9ff;
+        }
+
+    </style>
+{% endblock %}

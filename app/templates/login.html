@@ -1,0 +1,81 @@
+{% extends 'bootstrap/base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}
+    Login - Truck-n-Load
+{% endblock %}
+{% block styles %}
+    {{ super() }}
+    <style>
+        .logo {
+            position:absolute;
+            width:calc(25px + 9vw);
+        }
+        input#username, input#email, input#password,  input#password2{
+            font-size: calc(1vw + 10px);
+            height: calc(1.2vw + 12px);
+        }
+        input#submit {
+            color:#2A66B4;
+            font-weight:bold;
+            font-size: calc(1vw + 10px);
+        }
+        label {
+            font-size: calc(1vw + 10px);
+            color:#2A66B4;
+        }
+        a.accept {
+            color: #8BAF5A;
+        }
+        a.back {
+            color: #F03B27;
+        }
+        h3  {
+            color: #4A96D4;
+            font-size: calc(1vw + 10px);
+
+        }
+        span.left , span.right {
+            font-weight: bold;
+            color: #4A96D4;
+        }
+        header.IndexHeader {
+            position:relative;
+        }
+        h1{
+            color:#2A66B4;
+            font-weight:lighter;
+            font-size: calc(4vw + 15px);
+        }
+        h2 {
+            color:#4A96D4;
+            font-size: calc(2vw + 12px);
+        }
+        body {
+            font-size: calc(1vw + 10px);
+            font-family: sans-serif;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <nav class="navbar navbar-default">
+    <div class="container" style="position:relative;">
+        <img class="logo" src="{{ url_for('static',filename='logo.png') }}"/>
+        <h1 align="center"><a href="{{ url_for('index') }}">SeaLanes</a></h1>
+        <h2 align="center">Loading Management System</h2>
+    </div>
+    </nav>
+    <div class="container">
+        <form class="form-signin" action="" method="post">
+            <h2 class="form-signin-heading">Sign In</h2>
+            {{ wtf.quick_form(form) }}
+        </form>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <br><div class="alert alert-danger">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+{% endblock %}

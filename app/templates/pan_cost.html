@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <h2 align="center"> Pan Cost </h2>
+        <div align="table-responsive">
+            <table class="table" cellpadding="3" border="3" frame="box" align="center"  style="height:50%; width:50%">
+
+            <caption align="center"> Pan Cost Table </caption>
+
+                <tbody>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th colspan="2">Pan</th>
+                    </tr>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>Pallets</th>
+                        <th>Kilograms</th>
+                    </tr>
+                    <tr>
+                        <td>{{ address }} dry</td>
+                        <td>{{ dry_pallets }}</td>
+                        <td>{{ dry_weight }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ address }} chiller</td>
+                        <td>{{ chilled_pallets }}</td>
+                        <td>{{ chilled_weight }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ address }} freezer</td>
+                        <td>{{ frozen_pallets }}</td>
+                        <td>{{ frozen_weight }}</td>
+                    </tr>
+                    <tr bgcolor="#add8e6">
+                        <td>Total</td>
+                        <td>{{ total_pallets }}</td>
+                        <td>{{ dry_weight+frozen_weight+chilled_weight }}</td>
+                    </tr>
+                    <tr>
+                        <td>Cost of Pan ($)</td>
+                        <td>&ensp;</td>
+                        <td>{{ cost }}</td>
+                    </tr>
+                    <tr>
+                        <td>$/KG</td>
+                        <td>&ensp;</td>
+                        <td>{{ "${:,.2f}".format(cost / (dry_weight+frozen_weight+chilled_weight))}}</td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+
+{% endblock %}

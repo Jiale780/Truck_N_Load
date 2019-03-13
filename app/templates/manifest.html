@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+    <div align="center">
+        <h3>Manifest</h3>
+        <p>
+            <form action="" method="post">
+                {{ form.id }}
+                {{ form.hidden_tag() }}
+                {{ form.submit() }}
+            </form>
+        </p>
+        {% if form.submit() and not form.errors %}
+            <p>{{ message }}</p>
+            <p>
+                <button onclick="SwitchPalletView()" id="pallet_view_button" class="btn-primary">Pallet View</button>
+                <button onclick="SwitchPanView()" disabled="disabled" style="opacity:0.5;" id="pan_view_button" class="btn-primary">Pan (Item) View</button>
+            </p>
+            <table style="visibility: collapse;" id="manifest_pallets">
+            {% if ptable %}
+                <tr>
+                    <th class="manifest">Pallet ID</th>
+                    <th class="manifest">Customer</th>
+                    <th class="manifest">Category</th>
+                    <th class="manifest">Weight (Kg)</th>
+                    <th class="manifest">Height (m)</th>
+                </tr>
+            {% for row in ptable %}
+                <tr>
+                    <td>{{ row.id }}</td>
+                    <td> {{ row.first_name }}</td>
+                    <td class="table_{{ row.category }}"> {{ row.category }}</td>
+                    <td> {{ row.weight }}</td>
+                    <td>{{ row.height }}</td>
+                </tr>
+            {% endfor %}
+            {% else %}
+                There is no data to display
+            {% endif %}
+            </table>
+            <table id="manifest_list">
+                <tbody>
+                    {% if itable %}
+                        <tr>
+                            <th class="manifest">Quantity</th>
+                            <th class="manifest">Name</th>
+                        </tr>
+                    {% for row in itable %}
+                        <tr>
+                            <td>{{ row.quantity }}</td>
+                            <td>{{ row.name }}</td>
+                        <td>{{ row.id }}</td>
+                        </tr>
+                    {% endfor %}
+                    {% else %}
+                        <!--Potential error message here, no items to display-->
+                    {% endif %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+    <script type="text/javascript">
+        function ExplorePallet(element) {
+            alert("You've asked me to explore pallet "+element.id.substr(15) + " but this feature isn't ready yet");
+        }
+        function SwitchPalletView() {
+            pallet_view_button.disabled = true;
+            pallet_view_button.style.opacity = "0.5";
+            pan_view_button.disabled = false;
+            pan_view_button.style.opacity = "1";
+            manifest_pallets.style.visibility = "visible";
+            manifest_list.style.visibility = "collapse";
+        }
+        function SwitchPanView() {
+            pallet_view_button.disabled = false;
+            pallet_view_button.style.opacity = "1";
+            pan_view_button.disabled = true;
+            pan_view_button.style.opacity = "0.5";
+            manifest_pallets.style.visibility = "collapse";
+            manifest_list.style.visibility = "visible";
+        }
+    </script>
+{% endblock %}
