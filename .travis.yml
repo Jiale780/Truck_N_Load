@@ -1,0 +1,12 @@
+# Configuration file for automatic testing at travis-ci.org
+sudo: false     # http://docs.travis-ci.com/user/migrating-from-legacy/
+language: python
+python:
+    - 3.6
+
+install:
+  - pip install unittest2
+  - pip install -r requirements.txt
+
+script:
+  - python unitTesting.py
