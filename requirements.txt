@@ -34,7 +34,7 @@ idna==2.6
 itsdangerous==0.24
 legacy==0.1.6
 loginform==1.2.0
-lxml==4.2.1
+lxml==4.6.2
 more-itertools==4.1.0
 pathlib==1.0.1
 pluggy==0.6.0
