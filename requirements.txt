@@ -5,7 +5,7 @@ Flask-Login==0.4.1 # Used for user accounts (logging in and logging out)
 Flask-Migrate==2.1.1 # Database migrations for Flask-SQLAlchemy
 Flask-SQLAlchemy==2.3.2 # Database library
 Flask-WTF==0.14.2
-Mako==1.0.7
+Mako==1.2.2
 MarkupSafe==1.0
 MyApplication==0.1.0
 PyYAML>=4.2b1
